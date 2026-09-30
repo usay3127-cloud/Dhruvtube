@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DhruvTube</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="yt-icon">▶</div>
+    <b>DhruvTube</b>
+  </div>
+
+  <div class="top-actions">
+    <button id="searchOpen">⌕</button>
+    <button id="themeBtn">☾</button>
+    <button id="profileBtn" class="avatar">D</button>
+  </div>
+</header>
+
+<div id="searchPanel" class="search-panel">
+  <button id="searchBack">←</button>
+  <input id="searchInput" placeholder="Search DhruvTube">
+  <button id="searchBtn">⌕</button>
+</div>
+
+<nav class="categories">
+  <button class="selected">All</button>
+  <button>Music</button>
+  <button>Gaming</button>
+  <button>Live</button>
+  <button>News</button>
+  <button>Sports</button>
+  <button>Technology</button>
+  <button>Education</button>
+</nav>
+
+<main id="home">
+
+  <section class="hero">
+    <div>
+      <span>WELCOME TO</span>
+      <h1>DhruvTube</h1>
+      <p>Watch what you love.</p>
+    </div>
+    <div class="hero-play">▶</div>
+  </section>
+
+  <section class="section-head">
+    <h2>Recommended</h2>
+    <button>View all</button>
+  </section>
+
+  <div id="videoGrid" class="video-grid"></div>
+
+</main>
+
+<section id="shortsPage" class="page hidden">
+  <h2>Shorts</h2>
+  <div id="shortsGrid" class="shorts-grid"></div>
+</section>
+
+<section id="subscriptionsPage" class="page hidden">
+  <h2>Subscriptions</h2>
+  <div class="empty">
+    <div>📺</div>
+    <h3>No subscriptions yet</h3>
+    <p>Subscribe to channels to see their latest videos.</p>
+  </div>
+</section>
+
+<section id="profilePage" class="page hidden">
+  <div class="you-page">
+
+    <!-- YouTube style top -->
+    <div class="you-top">
+      <button class="you-account">Accounts <span>⌄</span></button>
+
+      <div class="you-top-actions">
+        <span class="you-icon">♧</span>
+        <span class="you-icon">⌕</span>
+        <span class="you-icon">⚙</span>
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="you-profile">
+      <img class="you-big-avatar" id="accountAvatar" src="" alt="Profile">
+
+      <div class="you-profile-info">
+        <div class="you-name">DhruvTube</div>
+        <div class="you-handle">@dhruvtube</div>
+      </div>
+    </div>
+
+    <div class="you-actions">
+      <button class="you-action primary" id="viewChannelBtn">
+        View channel
+      </button>
+
+      <button class="you-action" id="loginBtn">
+        Get Premium
+      </button>
+    </div>
+
+    <!-- History -->
+    <div class="you-section-head">
+      <h2>History</h2>
+      <span>›</span>
+    </div>
+
+    <div class="you-history">
+
+      <div class="you-history-card">
+        <div class="you-thumb">▶</div>
+        <div class="you-video-title">Recently watched video</div>
+        <div class="you-video-channel">DhruvTube</div>
+      </div>
+
+      <div class="you-history-card">
+        <div class="you-thumb">▶</div>
+        <div class="you-video-title">Your watched videos</div>
+        <div class="you-video-channel">DhruvTube</div>
+      </div>
+
+      <div class="you-history-card">
+        <div class="you-thumb">▶</div>
+        <div class="you-video-title">Continue watching</div>
+        <div class="you-video-channel">DhruvTube</div>
+      </div>
+
+    </div>
+
+    <!-- Library -->
+    <h2 class="you-library-title">Library</h2>
+
+    <div class="you-library-tabs">
+      <button class="library-tab active">Recents⌄</button>
+      <button class="library-tab">Downloaded</button>
+      <button class="library-tab">Playlists</button>
+      <button class="library-tab">Courses</button>
+    </div>
+
+    <!-- Watch later -->
+    <div class="you-library-row">
+      <div class="library-thumb">◷</div>
+
+      <div class="library-info">
+        <div class="library-name">Watch later</div>
+        <div class="library-private">Private</div>
+      </div>
+
+      <div class="library-more">•••</div>
+    </div>
+
+    <!-- Liked videos -->
+    <div class="you-library-row">
+      <div class="library-thumb">♡</div>
+
+      <div class="library-info">
+        <div class="library-name">Liked videos</div>
+        <div class="library-private">Private</div>
+      </div>
+
+      <div class="library-more">•••</div>
+    </div>
+
+  </div>
+</section>
+
+<nav class="bottom-nav">
+  <button class="nav active" data-page="home">⌂<span>Home</span></button>
+  <button class="nav" data-page="shorts">▣<span>Shorts</span></button>
+  <button class="upload" id="uploadBtn">＋</button>
+  <button class="nav" data-page="subscriptions">▤<span>Subscriptions</span></button>
+  <button class="nav" data-page="profile">●<span>You</span></button>
+</nav>
+
+<div id="accountPopup" class="account-popup hidden">
+  <div class="account-popup-header">
+    <span>Accounts</span>
+    <a id="accountAddBtn" href="/api/youtube/connect" class="account-add-btn">＋</a>
+  </div>
+
+  <div class="account-main">
+    <img id="popupAvatar" class="popup-avatar" src="" alt="Profile">
+
+    <div class="popup-user-info">
+      <b id="popupName">DhruvTube</b>
+      <span id="popupEmail">Not signed in</span>
+    </div>
+  </div>
+
+  <button id="popupSignIn" class="popup-option" onclick="window.location.href='/api/youtube/connect'">
+    Switch Google account
+  </button>
+
+  <button id="popupViewChannel" class="popup-option hidden" onclick="document.getElementById('accountPopup').classList.add('hidden'); showPage('profile');">
+    View your channel
+  </button>
+
+  <button id="popupSignOut" class="popup-option hidden">
+    Sign out
+  </button>
+</div>
+
+<div id="authModal" class="auth-modal hidden">
+  <div class="auth-box">
+    <button id="authClose" class="auth-close">✕</button>
+
+    <h2 id="authTitle">Sign in to DhruvTube</h2>
+
+    <div id="authLoginForm">
+      <input id="loginEmail" type="email" placeholder="Email">
+      <input id="loginPassword" type="password" placeholder="Password">
+
+      <button id="loginSubmit" class="auth-submit">Sign in</button>
+
+      <p id="loginMessage" class="auth-message"></p>
+
+      <button id="showRegister" class="auth-switch">
+        Create an account
+      </button>
+    </div>
+
+    <div id="authRegisterForm" class="hidden">
+      <input id="registerUsername" type="text" placeholder="Username">
+      <input id="registerEmail" type="email" placeholder="Email">
+      <input id="registerPassword" type="password" placeholder="Password">
+
+      <button id="registerSubmit" class="auth-submit">
+        Create account
+      </button>
+
+      <p id="registerMessage" class="auth-message"></p>
+
+      <button id="showLogin" class="auth-switch">
+        Already have an account? Sign in
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="player" class="player hidden">
+  <button id="closePlayer">✕</button>
+  <div class="player-screen">▶</div>
+  <div id="playerTitle"></div>
+</div>
+
+<script src="/app.js"></script>
+
+
+</body>
+</html>
