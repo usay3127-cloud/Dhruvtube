@@ -2,16 +2,22 @@ const fs = require("fs");
 const path = require("path");
 const { google } = require("googleapis");
 
-const credentials = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "youtube-client-secret.json"), "utf8")
-);
-
-const config = credentials.web || credentials.installed;
+const config = process.env.GOOGLE_CLIENT_ID
+  ? {
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET
+    }
+  : (() => {
+      const credentials = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "youtube-client-secret.json"), "utf8")
+      );
+      return credentials.web || credentials.installed;
+    })();
 
 const oauth2Client = new google.auth.OAuth2(
   config.client_id,
   config.client_secret,
-  "http://127.0.0.1:3000/api/youtube/oauth2callback"
+  process.env.GOOGLE_REDIRECT_URI || "http://127.0.0.1:3000/api/youtube/oauth2callback"
 );
 
 const TOKEN_PATH = path.join(__dirname, ".youtube-token.json");

@@ -13,7 +13,7 @@ const youtubeUploadRouter = require("./youtube-upload");
 const copyrightCheckRouter = require("./copyright-check");
 const youtubeThumbnailRouter = require("./youtube-thumbnail");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 
 // ===============================
