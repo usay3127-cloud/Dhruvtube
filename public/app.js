@@ -2213,7 +2213,6 @@ document.getElementById("logoutBtn").onclick = () => {
   showPage("profile");
 };
 
-localStorage.removeItem("dhruvtube_user"); currentUser = null;
 loadCurrentUser();
 updateAccountPopup();
 
