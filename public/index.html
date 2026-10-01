@@ -182,7 +182,7 @@
 <div id="accountPopup" class="account-popup hidden">
   <div class="account-popup-header">
     <span>Accounts</span>
-    <a id="accountAddBtn" href="/api/youtube/connect" class="account-add-btn">＋</a>
+    <a id="accountAddBtn" href="#" class="account-add-btn">＋</a>
   </div>
 
   <div class="account-main">
@@ -194,7 +194,7 @@
     </div>
   </div>
 
-  <button id="popupSignIn" class="popup-option" onclick="window.location.href='/api/youtube/connect'">
+  <button id="popupSignIn" class="popup-option" onclick="openAuthModal()">
     Switch Google account
   </button>
 
@@ -209,7 +209,9 @@
 
 <div id="authModal" class="auth-modal hidden">
   <div class="auth-box">
-    <button id="authClose" class="auth-close">✕</button>
+    <button id="authClose" type="button" class="auth-close"
+  onclick="document.getElementById('authModal').classList.add('hidden'); return false;"
+  style="position:absolute; top:12px; right:12px; z-index:99999; pointer-events:auto; cursor:pointer;">✕</button>
 
     <h2 id="authTitle">Sign in to DhruvTube</h2>
 

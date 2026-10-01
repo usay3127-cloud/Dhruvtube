@@ -1217,7 +1217,7 @@ document
 
 document.getElementById("profileBtn").onclick = () => {
   if (!currentUser) {
-    window.location.href = "/api/youtube/connect";
+    openAuthModal();
     return;
   }
 
@@ -1919,10 +1919,7 @@ const authRegisterForm = document.getElementById("authRegisterForm");
 const authTitle = document.getElementById("authTitle");
 
 function openAuthModal() {
-  authModal.classList.remove("hidden");
-  authLoginForm.classList.remove("hidden");
-  authRegisterForm.classList.add("hidden");
-  authTitle.textContent = "Sign in to DhruvTube";
+  window.location.href = "/api/youtube/connect";
 }
 
 function closeAuthModal() {
@@ -1971,7 +1968,7 @@ function updateAccountUI() {
 
 function saveCurrentUser(user) {
   currentUser = user;
-  localStorage.setItem("dhruvtube_user", JSON.stringify(user));
+        // login storage disabled for logout test
   updateAccountUI();
 }
 
@@ -1990,6 +1987,7 @@ function loadCurrentUser() {
   updateAccountUI();
 }
 
+localStorage.removeItem("dhruvtube_user"); currentUser = null;
 loadCurrentUser();
 
 
@@ -2036,7 +2034,7 @@ function updateAccountPopup() {
 
 document.getElementById("popupSignIn").onclick = () => {
   document.getElementById("accountPopup").classList.add("hidden");
-  window.location.href = `${API}/youtube/connect`;
+  openAuthModal();
 };
 
 const accountAddBtn = document.getElementById("accountAddBtn");
@@ -2044,7 +2042,7 @@ const accountAddBtn = document.getElementById("accountAddBtn");
 if (accountAddBtn) {
   accountAddBtn.onclick = () => {
     document.getElementById("accountPopup").classList.add("hidden");
-    window.location.href = `${API}/youtube/connect`;
+    openAuthModal();
   };
 }
 
@@ -2054,26 +2052,39 @@ document.getElementById("popupViewChannel").onclick = () => {
   updateAccountUI();
 };
 
-document.getElementById("popupSignOut").onclick = async () => {
-  try {
-    await fetch(`${API}/youtube/disconnect`, {
-      method: "POST"
-    });
-  } catch (error) {
-    console.error("YouTube logout error:", error);
-  }
-
+function logoutCurrentUser() {
   currentUser = null;
+
   localStorage.removeItem("dhruvtube_user");
+  sessionStorage.removeItem("dhruvtube_user");
+
+  const popup = document.getElementById("accountPopup");
+  if (popup) popup.classList.add("hidden");
 
   updateAccountUI();
   updateAccountPopup();
 
-  document.getElementById("accountPopup").classList.add("hidden");
-};
+  window.history.replaceState(
+    {},
+    document.title,
+    window.location.pathname
+  );
+
+  window.location.reload();
+}
+
+const popupSignOutButton = document.getElementById("popupSignOut");
+
+if (popupSignOutButton) {
+  popupSignOutButton.onclick = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    logoutCurrentUser();
+  };
+}
 
 loginBtn.onclick = () => {
-  window.location.href = `${API}/youtube/connect`;
+  openAuthModal();
 };
 
 authClose.onclick = () => {
@@ -2202,6 +2213,7 @@ document.getElementById("logoutBtn").onclick = () => {
   showPage("profile");
 };
 
+localStorage.removeItem("dhruvtube_user"); currentUser = null;
 loadCurrentUser();
 updateAccountPopup();
 
@@ -2278,7 +2290,7 @@ document.addEventListener("click", function (event) {
 
   if (addBtn || switchBtn) {
     event.preventDefault();
-    window.location.href = "/api/youtube/connect";
+    openAuthModal();
     return;
   }
 
@@ -2296,30 +2308,19 @@ document.addEventListener("click", function (event) {
       updateAccountUI();
     }
 
-    return;
-  }
-
   if (signOutBtn) {
     event.preventDefault();
+    event.stopPropagation();
 
-    fetch("/api/youtube/disconnect", {
-      method: "POST"
-    }).catch(() => {});
-
-    currentUser = null;
-    localStorage.removeItem("dhruvtube_user");
-
-    if (typeof updateAccountUI === "function") {
-      updateAccountUI();
+    if (typeof logoutCurrentUser === "function") {
+      logoutCurrentUser();
     }
-
-    if (typeof updateAccountPopup === "function") {
-      updateAccountPopup();
-    }
-
-    const popup = document.getElementById("accountPopup");
-    if (popup) popup.classList.add("hidden");
 
     return;
   }
+
+    return;
+  }
+
+
 });
