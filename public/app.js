@@ -1888,6 +1888,7 @@ function escapeHTML(value) {
           "dhruvtube_user",
           JSON.stringify(user)
         );
+        currentUser = user;
       }
 
       window.history.replaceState(
@@ -1987,7 +1988,6 @@ function loadCurrentUser() {
   updateAccountUI();
 }
 
-localStorage.removeItem("dhruvtube_user"); currentUser = null;
 loadCurrentUser();
 
 
