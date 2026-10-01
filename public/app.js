@@ -1216,11 +1216,6 @@ document
 
 
 document.getElementById("profileBtn").onclick = () => {
-  if (!currentUser) {
-    openAuthModal();
-    return;
-  }
-
   const popup = document.getElementById("accountPopup");
 
   if (popup) {
